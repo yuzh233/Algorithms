@@ -4,7 +4,8 @@ date: 2018-08-05
 tags: 数据结构 算法
 ---
 
-[toc]
+[TOC]
+
 
 # 第一章 基础
 ## 1.1 基础编程模型
@@ -408,6 +409,12 @@ public class LinkedQueue<Item> implements Iterable {
 [读取倒数第K个字符串](https://github.com/yuzh233/Algorithms/blob/master/src/chapter_1/bag_queue_stack/Ex15.java)
 
 链表：
+
+[LinkedStackExercise.java](https://github.com/yuzh233/Algorithms/blob/master/src/chapter_1/bag_queue_stack/LinkedStackExercise.java)
+
+双向链式存储结构集合数据类型实现：
+
+[Ex31.java](https://github.com/yuzh233/Algorithms/blob/master/src/chapter_1/bag_queue_stack/Ex31.java)
 
 
 ## 1.4 算法分析
