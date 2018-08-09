@@ -413,14 +413,15 @@ public class LinkedQueue<Item> implements Iterable {
 
 双向链式存储结构集合数据类型实现：
 
-[Ex31.java](https://github.com/yuzh233/Algorithms/blob/master/src/chapter_1/bag_queue_stack/Ex31.java)
+[Ex31_DoubleLinkedStack.java](https://github.com/yuzh233/Algorithms/blob/master/src/chapter_1/bag_queue_stack/Ex31_DoubleLinkedStack.java)
 
 随机背包：
 
 [Ex34_RandomBag.java](https://github.com/yuzh233/Algorithms/blob/master/src/chapter_1/bag_queue_stack/Ex34_RandomBag.java)
 
-随机队列：
+Josephus生存游戏：
 
+[Ex37_Josephus.java](https://github.com/yuzh233/Algorithms/blob/master/src/chapter_1/bag_queue_stack/Ex37_Josephus.java)
 
 
 ## 1.4 算法分析

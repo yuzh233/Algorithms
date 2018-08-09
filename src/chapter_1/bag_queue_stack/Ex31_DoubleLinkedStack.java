@@ -10,7 +10,7 @@ import java.util.Objects;
  * @DateTime: 2018/08/08 21:37
  * 双向链表结构
  */
-public class Ex31<Item> implements Iterable {
+public class Ex31_DoubleLinkedStack<Item> implements Iterable {
     private DoubleNode first;
     private DoubleNode last;
     private int N;
@@ -218,7 +218,7 @@ public class Ex31<Item> implements Iterable {
     }
 
     public static void main(String[] args) {
-        Ex31<String> stack = new Ex31<>();
+        Ex31_DoubleLinkedStack<String> stack = new Ex31_DoubleLinkedStack<>();
         stack.push("aa");
         stack.push("bb");
         stack.push("cc");

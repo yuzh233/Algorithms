@@ -47,6 +47,7 @@ public class LinkedQueue<Item> implements Iterable {
         return oldFirst.item;
     }
 
+
     public boolean isEmpty() {
         return first == null;
     }
