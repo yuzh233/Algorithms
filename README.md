@@ -416,6 +416,7 @@ public class LinkedQueue<Item> implements Iterable {
 [Ex31.java](https://github.com/yuzh233/Algorithms/blob/master/src/chapter_1/bag_queue_stack/Ex31.java)
 
 随机背包：
+
 [Ex34_RandomBag.java](https://github.com/yuzh233/Algorithms/blob/master/src/chapter_1/bag_queue_stack/Ex34_RandomBag.java)
 
 随机队列：
