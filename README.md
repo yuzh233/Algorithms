@@ -401,6 +401,8 @@ public class LinkedQueue<Item> implements Iterable {
 
 [中序表达式转后序表达式](https://github.com/yuzh233/Algorithms/blob/master/src/chapter_1/bag_queue_stack/Ex10.java)
 
+[后序表达式求值实现简单计算器](https://github.com/yuzh233/Algorithms/blob/master/src/chapter_1/bag_queue_stack/Ex11_EvaluatePostfix.java)
+
 队列：
 
 [读取倒数第K个字符串](https://github.com/yuzh233/Algorithms/blob/master/src/chapter_1/bag_queue_stack/Ex15.java)
@@ -412,6 +414,11 @@ public class LinkedQueue<Item> implements Iterable {
 双向链式存储结构集合数据类型实现：
 
 [Ex31.java](https://github.com/yuzh233/Algorithms/blob/master/src/chapter_1/bag_queue_stack/Ex31.java)
+
+随机背包：
+
+随机队列：
+
 
 
 ## 1.4 算法分析

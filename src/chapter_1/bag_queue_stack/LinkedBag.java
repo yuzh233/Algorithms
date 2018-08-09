@@ -33,7 +33,7 @@ public class LinkedBag<Item> implements Iterable<Item> {
     }
 
     /**
-     * 背包虽然说数据是无需的，实际上访问的顺序也是后进先出，和栈一样。
+     * 背包虽然说数据是无序的，实际上访问的顺序也是后进先出，和栈一样。
      *
      * @param item
      */
