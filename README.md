@@ -423,6 +423,10 @@ Josephus生存游戏：
 
 [Ex37_Josephus.java](https://github.com/yuzh233/Algorithms/blob/master/src/chapter_1/bag_queue_stack/Ex37_Josephus.java)
 
+可连接队列、栈：
+
+[Ex47.java](https://github.com/yuzh233/Algorithms/blob/master/src/chapter_1/bag_queue_stack/Ex47.java)
+
 
 ## 1.4 算法分析
 ## 1.5 案例研究：union-find算法

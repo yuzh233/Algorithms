@@ -2,6 +2,7 @@ package chapter_1.bag_queue_stack;
 
 import edu.princeton.cs.algs4.StdOut;
 
+import java.util.ConcurrentModificationException;
 import java.util.Iterator;
 
 /**
@@ -23,7 +24,30 @@ public class LinkedStack<Item> implements Iterable<Item> {
         private Node next;
     }
 
-    // Ex12
+    /**
+     * Ex47 连接两个栈
+     *
+     * @param stack2
+     */
+    public void catenation(LinkedStack<Item> stack2) {
+        Node<Item> lastNode = null;
+        Node<Item> currentNode = first;
+        while (!isEmpty()) {
+            if (currentNode.next == null) {
+                lastNode = currentNode;
+                break;
+            }
+            currentNode = currentNode.next;
+        }
+        lastNode.next = stack2.first;
+    }
+
+    /**
+     * Ex12 接收一个字符串栈作为参数，返回该栈的副本
+     *
+     * @param targetStack
+     * @return
+     */
     private static LinkedStack<String> copy(LinkedStack<String> targetStack) {
         // 把目标栈逐个弹出压入新栈后顺序倒置了，如果是双向队列可以从尾遍历到头压入新栈。
         LinkedStack<String> tem = new LinkedStack<>();
@@ -38,20 +62,27 @@ public class LinkedStack<Item> implements Iterable<Item> {
     }
 
     /**
-     * 迭代器
+     * 迭代器（所有在迭代中对值的修改都是不允许的！）
      *
      * @param <Item>
      */
     private class listIterator<Item> implements Iterator<Item> {
         private Node currentNode = first;
+        private int count = size();
 
         @Override
         public boolean hasNext() {
+            if (size() != count) {
+                throw new ConcurrentModificationException("不可修改值！");
+            }
             return currentNode != null;
         }
 
         @Override
         public Item next() {
+            if (size() != count) {
+                throw new ConcurrentModificationException("不可修改值！");
+            }
             Item item = (Item) currentNode.item;
             currentNode = currentNode.next;
             return item;
@@ -128,7 +159,11 @@ public class LinkedStack<Item> implements Iterable<Item> {
 
         Iterator<String> iterator = stack.iterator();
         while (iterator.hasNext()) {
-            System.out.println(iterator.next());
+            String s = iterator.next();
+            if ("dd".equals(s)) {
+                stack.pop();
+            }
+            System.out.println(s);
         }
         LinkedStack<String> newStack = LinkedStack.copy(stack);
         StdOut.println(newStack == stack);

@@ -1,5 +1,7 @@
 package chapter_1.bag_queue_stack;
 
+import edu.princeton.cs.algs4.StdOut;
+
 import java.util.Iterator;
 
 /**
@@ -15,6 +17,16 @@ public class LinkedQueue<Item> implements Iterable {
     private class Node<Item> {
         private Item item;
         private Node next;
+    }
+
+    /**
+     * Ex47 连接两个队列
+     *
+     * @param queue2
+     */
+    public void catenation(LinkedQueue<Item> queue2) {
+        last.next = queue2.first;
+        last = queue2.last;
     }
 
     /**

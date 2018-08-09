@@ -65,6 +65,17 @@ public class Ex31_DoubleLinkedStack<Item> implements Iterable {
     }
 
     /**
+     * Ex47 连接两个栈
+     *
+     * @param stack2
+     */
+    public void catenation(Ex31_DoubleLinkedStack<Item> stack2) {
+        DoubleNode<Item> oldLast = last;
+        oldLast.next = stack2.first;
+        last = stack2.last;
+    }
+
+    /**
      * 表头压入节点
      *
      * @param item
