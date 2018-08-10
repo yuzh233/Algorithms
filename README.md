@@ -397,35 +397,35 @@ public class LinkedQueue<Item> implements Iterable {
 
 下压栈：
 
-[补全表达式转为中序表达式](https://github.com/yuzh233/Algorithms/blob/master/src/chapter_1/bag_queue_stack/Ex9.java)
+[补全表达式转为中序表达式](https://github.com/yuzh233/Algorithms/blob/master/src/chapter_1/_3_bag_queue_stack/Ex9.java)
 
-[中序表达式转后序表达式](https://github.com/yuzh233/Algorithms/blob/master/src/chapter_1/bag_queue_stack/Ex10.java)
+[中序表达式转后序表达式](https://github.com/yuzh233/Algorithms/blob/master/src/chapter_1/_3_bag_queue_stack/Ex10.java)
 
-[后序表达式求值实现简单计算器](https://github.com/yuzh233/Algorithms/blob/master/src/chapter_1/bag_queue_stack/Ex11_EvaluatePostfix.java)
+[后序表达式求值实现简单计算器](https://github.com/yuzh233/Algorithms/blob/master/src/chapter_1/_3_bag_queue_stack/Ex11_EvaluatePostfix.java)
 
 队列：
 
-[读取倒数第K个字符串](https://github.com/yuzh233/Algorithms/blob/master/src/chapter_1/bag_queue_stack/Ex15.java)
+[读取倒数第K个字符串](https://github.com/yuzh233/Algorithms/blob/master/src/chapter_1/_3_bag_queue_stack/Ex15.java)
 
 链表：
 
-[LinkedStackExercise.java](https://github.com/yuzh233/Algorithms/blob/master/src/chapter_1/bag_queue_stack/LinkedStackExercise.java)
+[LinkedStackExercise.java](https://github.com/yuzh233/Algorithms/blob/master/src/chapter_1/_3_bag_queue_stack/LinkedStackExercise.java)
 
 双向链式存储结构集合数据类型实现：
 
-[Ex31_DoubleLinkedStack.java](https://github.com/yuzh233/Algorithms/blob/master/src/chapter_1/bag_queue_stack/Ex31_DoubleLinkedStack.java)
+[Ex31_DoubleLinkedStack.java](https://github.com/yuzh233/Algorithms/blob/master/src/chapter_1/_3_bag_queue_stack/Ex31_DoubleLinkedStack.java)
 
 随机背包：
 
-[Ex34_RandomBag.java](https://github.com/yuzh233/Algorithms/blob/master/src/chapter_1/bag_queue_stack/Ex34_RandomBag.java)
+[Ex34_RandomBag.java](https://github.com/yuzh233/Algorithms/blob/master/src/chapter_1/_3_bag_queue_stack/Ex34_RandomBag.java)
 
 Josephus生存游戏：
 
-[Ex37_Josephus.java](https://github.com/yuzh233/Algorithms/blob/master/src/chapter_1/bag_queue_stack/Ex37_Josephus.java)
+[Ex37_Josephus.java](https://github.com/yuzh233/Algorithms/blob/master/src/chapter_1/_3_bag_queue_stack/Ex37_Josephus.java)
 
 可连接队列、栈：
 
-[Ex47.java](https://github.com/yuzh233/Algorithms/blob/master/src/chapter_1/bag_queue_stack/Ex47.java)
+[Ex47.java](https://github.com/yuzh233/Algorithms/blob/master/src/chapter_1/_3_bag_queue_stack/Ex47.java)
 
 
 ## 1.4 算法分析
