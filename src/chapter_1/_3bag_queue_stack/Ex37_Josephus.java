@@ -1,4 +1,4 @@
-package chapter_1._3_bag_queue_stack;
+package chapter_1._3bag_queue_stack;
 
 import edu.princeton.cs.algs4.StdOut;
 
@@ -43,5 +43,5 @@ public class Ex37_Josephus {
 }
 
 
-//javac -Djava.ext.dirs=D:\IdeaProjects\Algorithms\lib -Xlint:deprecation  -Xlint:unchecked -encoding utf-8  chapter_1\_3_bag_queue_stack\Ex37_Josephus.java
-//java -Djava.ext.dirs=D:\IdeaProjects\Algorithms\lib chapter_1/_3_bag_queue_stack/Ex37_Josephus 7 2
+//javac -Djava.ext.dirs=D:\IdeaProjects\Algorithms\lib -Xlint:deprecation  -Xlint:unchecked -encoding utf-8  chapter_1\_3bag_queue_stack\Ex37_Josephus.java
+//java -Djava.ext.dirs=D:\IdeaProjects\Algorithms\lib chapter_1/_3bag_queue_stack/Ex37_Josephus 7 2

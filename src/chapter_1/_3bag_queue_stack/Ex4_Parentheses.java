@@ -1,4 +1,4 @@
-package chapter_1._3_bag_queue_stack;
+package chapter_1._3bag_queue_stack;
 
 import edu.princeton.cs.algs4.StdIn;
 import edu.princeton.cs.algs4.StdOut;
@@ -47,5 +47,5 @@ public class Ex4_Parentheses {
 }
 
 //[ ( ) ] { } { [ ( ) ( ) ] ( ) }      /     [ ( ] )
-//javac -Djava.ext.dirs=D:\IdeaProjects\Algorithms\lib -Xlint:deprecation  -Xlint:unchecked -encoding utf-8  chapter_1\_3_bag_queue_stack\Ex4_Parentheses.java
-//java -Djava.ext.dirs=D:\IdeaProjects\Algorithms\lib chapter_1/_3_bag_queue_stack/Ex4_Parentheses < D:/IdeaProjects/Algorithms/src/chapter_1/_3_bag_queue_stack/parentheses.txt
+//javac -Djava.ext.dirs=D:\IdeaProjects\Algorithms\lib -Xlint:deprecation  -Xlint:unchecked -encoding utf-8  chapter_1\_3bag_queue_stack\Ex4_Parentheses.java
+//java -Djava.ext.dirs=D:\IdeaProjects\Algorithms\lib chapter_1/_3bag_queue_stack/Ex4_Parentheses < D:/IdeaProjects/Algorithms/src/chapter_1/_3bag_queue_stack/parentheses.txt

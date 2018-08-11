@@ -1,4 +1,4 @@
-package chapter_1._4_analysis_of_algorithms;
+package chapter_1._4analysis_of_algorithms;
 
 import edu.princeton.cs.algs4.In;
 import edu.princeton.cs.algs4.StdOut;

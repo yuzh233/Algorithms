@@ -1,4 +1,4 @@
-package chapter_1._3_bag_queue_stack;
+package chapter_1._3bag_queue_stack;
 
 import edu.princeton.cs.algs4.Stack;
 import edu.princeton.cs.algs4.StdIn;
@@ -53,5 +53,5 @@ public class Evaluate {
 }
 
 
-//javac -Djava.ext.dirs=D:\IdeaProjects\Algorithms\lib -Xlint:deprecation  -encoding utf-8  chapter_1\_3_bag_queue_stack\Evaluate.java
-//java -Djava.ext.dirs=D:\IdeaProjects\Algorithms\lib  chapter_1\_3_bag_queue_stack\Evaluate
+//javac -Djava.ext.dirs=D:\IdeaProjects\Algorithms\lib -Xlint:deprecation  -encoding utf-8  chapter_1\_3bag_queue_stack\Evaluate.java
+//java -Djava.ext.dirs=D:\IdeaProjects\Algorithms\lib  chapter_1\_3bag_queue_stack\Evaluate

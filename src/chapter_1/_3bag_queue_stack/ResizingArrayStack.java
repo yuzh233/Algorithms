@@ -1,4 +1,4 @@
-package chapter_1._3_bag_queue_stack;
+package chapter_1._3bag_queue_stack;
 
 import edu.princeton.cs.algs4.StdIn;
 import edu.princeton.cs.algs4.StdOut;
@@ -114,5 +114,5 @@ public class ResizingArrayStack<Item> implements Iterable<Item> { // 实现该�
 }
 
 
-//javac -Djava.ext.dirs=D:\IdeaProjects\Algorithms\lib -Xlint:unchecked  -encoding utf-8  chapter_1/_3_bag_queue_stack/ResizingArrayStack.java
-//java -Djava.ext.dirs=D:\IdeaProjects\Algorithms\lib chapter_1/_3_bag_queue_stack/ResizingArrayStack < D:\IdeaProjects\Algorithms\algs4-data\tobe.txt
+//javac -Djava.ext.dirs=D:\IdeaProjects\Algorithms\lib -Xlint:unchecked  -encoding utf-8  chapter_1/_3bag_queue_stack/ResizingArrayStack.java
+//java -Djava.ext.dirs=D:\IdeaProjects\Algorithms\lib chapter_1/_3bag_queue_stack/ResizingArrayStack < D:\IdeaProjects\Algorithms\algs4-data\tobe.txt

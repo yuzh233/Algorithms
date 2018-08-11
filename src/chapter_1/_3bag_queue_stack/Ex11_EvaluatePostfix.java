@@ -1,4 +1,4 @@
-package chapter_1._3_bag_queue_stack;
+package chapter_1._3bag_queue_stack;
 
 import edu.princeton.cs.algs4.StdIn;
 import edu.princeton.cs.algs4.StdOut;
@@ -46,6 +46,6 @@ public class Ex11_EvaluatePostfix {
     }
 }
 
-//javac -Djava.ext.dirs=D:\IdeaProjects\Algorithms\lib -Xlint:deprecation  -Xlint:unchecked -encoding utf-8  chapter_1\_3_bag_queue_stack\Ex11_EvaluatePostfix.java
-//利用文本作为输入流：java -Djava.ext.dirs=D:\IdeaProjects\Algorithms\lib chapter_1/_3_bag_queue_stack/Ex11_EvaluatePostfix < D:/IdeaProjects/Algorithms/src/chapter_1/_3_bag_queue_stack/Ex11.txt
-//利用管道作为输入流：java -Djava.ext.dirs=D:\IdeaProjects\Algorithms\lib chapter_1/_3_bag_queue_stack/Ex11_EvaluatePostfix | java ....../Ex10
+//javac -Djava.ext.dirs=D:\IdeaProjects\Algorithms\lib -Xlint:deprecation  -Xlint:unchecked -encoding utf-8  chapter_1\_3bag_queue_stack\Ex11_EvaluatePostfix.java
+//利用文本作为输入流：java -Djava.ext.dirs=D:\IdeaProjects\Algorithms\lib chapter_1/_3bag_queue_stack/Ex11_EvaluatePostfix < D:/IdeaProjects/Algorithms/src/chapter_1/_3bag_queue_stack/Ex11.txt
+//利用管道作为输入流：java -Djava.ext.dirs=D:\IdeaProjects\Algorithms\lib chapter_1/_3bag_queue_stack/Ex11_EvaluatePostfix | java ....../Ex10

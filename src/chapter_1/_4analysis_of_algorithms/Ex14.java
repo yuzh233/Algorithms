@@ -1,4 +1,4 @@
-package chapter_1._4_analysis_of_algorithms;
+package chapter_1._4analysis_of_algorithms;
 
 import chapter_1._1programming_model.BinarySearch;
 import edu.princeton.cs.algs4.In;

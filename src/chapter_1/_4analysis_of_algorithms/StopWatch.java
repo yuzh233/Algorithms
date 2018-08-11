@@ -1,4 +1,4 @@
-package chapter_1._4_analysis_of_algorithms;
+package chapter_1._4analysis_of_algorithms;
 
 /**
  * @Author: yu_zh
