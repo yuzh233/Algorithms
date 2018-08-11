@@ -4,11 +4,12 @@ date: 2018-08-05
 tags: 数据结构 算法
 ---
 
-# 第一章 基础
-## 1.1 基础编程模型
-**标准输出**
+[TOC]
 
-**格式化输出**
+#  第一章 基础
+## 1.1 基础编程模型
+
+### 格式化输出
 
 从标准输出流中打印随机生成的数值，“%.2f\n”表示输出两位小数精度的浮点型数值并换行。
 
@@ -46,12 +47,12 @@ public class RandomSeq {
 ```
 会打印出：PI is 3.14
 
-**标准输入**
-**特点**
+### 标准输入
+#### 特点
 
 标准输入流最重要的特点就是这些值会在程序读取之后消失，程序读取了就不能回退再次读取。
 
-**重定向与管道**
+#### 重定向与管道
 
 使输出重定向到一个文件中，而不是终端打印：
 `java RandomSeq 1000 100.0 200.0 > data.txt`，每次打印都会向文件追加内容。
@@ -62,8 +63,9 @@ public class RandomSeq {
 将一个程序的输出重定向为一个程序的输入叫做`管道`。
 `java RandomSeq 1000 100.0 200.0 | Java Average`，该命令将RandomSeq的标准输出和Average的标准输入指定为了同一个流。看起来的效果就是Average运行时从RandomSeq的输出作为了自己的输入。这种写法的好处在于它能够突破输入输出流长度的限制，有效的利用了系统资源。RandomSeq调用了printf()时，向输入流末尾添加了一条字符串；Average调用readDouble()时，就从输入流开头删除了一个字符串。
 
-**二分查找**
+#### 二分查找
 读取终端输入流中的值，如果该值在指定文件中不存在则返回这个值，否则不返回。
+
 ```java
 public class BinarySearch {
     public static int rank(int key, int[] arr) {
@@ -104,6 +106,7 @@ public class BinarySearch {
     }
 }
 ```
+
 命令行参数：
 
     编译忽略过期警告：
@@ -119,7 +122,9 @@ public class BinarySearch {
 
 ## 1.2 数据抽象
 ## 1.3 背包、队列和栈
-**背包（Bag）** 是一种不支持从中删除元素的数据类型，其主要目的用来帮助用例（应用程序）收集元素并迭代遍历搜集到的所有元素（检查背包是否为空，或获取背包中元素的数量）。使用背包说明元素的处理是**无序**的。
+### 背包（Bag）
+
+是一种不支持从中删除元素的数据类型，其主要目的用来帮助用例（应用程序）收集元素并迭代遍历搜集到的所有元素（检查背包是否为空，或获取背包中元素的数量）。使用背包说明元素的处理是**无序**的。
 
 典型用例：计算标准输入中所有double值的平均值和标准差
 ```java
@@ -147,7 +152,8 @@ public class Stats {
     }
 }
 ```
-**队列（Queue）** 是一种基于先进先出（FIFO）策略的集合类型。队列是许多日常现象的模型，也是无数应用程序的核心。
+### 队列（Queue）
+是一种基于先进先出（FIFO）策略的集合类型。队列是许多日常现象的模型，也是无数应用程序的核心。
 
 典型用例：读取文件中的所有数字并放入数组中，使用队列和好处在于用例无需知道文件中的数字的大小即可将文件中的所有数字放入数组中，首先将文件中的所有数字按**顺序**放入队列中，再从队列中按**顺序**一个一个取出放入数组，队列中元素的顺序就是文件中数字的顺序。
 ```java
@@ -172,7 +178,9 @@ public class QueueDemo {
     }
 }
 ```
-**下压栈（栈、Stack）** 是一种基于后进先出（LIFO）策略的集合类型。生活中常见的后进先出策略的例子比如：桌面上放成一叠的邮件，当收信时将邮件压入（push）最顶端，取信时从最顶端将其弹出（pop）。这种策略好处在于我们能够及时的看到最新的邮件，坏处就是当没有清理栈时，某些较早的邮件永远不会被阅读。
+
+### 下压栈（栈、Stack）
+是一种基于后进先出（LIFO）策略的集合类型。生活中常见的后进先出策略的例子比如：桌面上放成一叠的邮件，当收信时将邮件压入（push）最顶端，取信时从最顶端将其弹出（pop）。这种策略好处在于我们能够及时的看到最新的邮件，坏处就是当没有清理栈时，某些较早的邮件永远不会被阅读。
 
 典型用例：用元素保存集合的同时颠倒他们的顺序，Reverse会把标准输入中的所有整数逆序排列。
 ```java
@@ -189,7 +197,8 @@ public class Reverse {
     }
 }
 ```
-**栈的典型用例：双栈算术表达式求值算法** 
+
+### 栈的典型用例：双栈算术表达式求值算法 
 
 编写一个算法来模拟系统运算算术表达式： `( 1 + ( ( 2 + 3 ) * ( 4 * 5 ) ) )` ，输入一个表达式字符串，为了简化问题，我们假设表达式只由运算符+、-、*、/，小括号，和数字组成，并且每个元素之间都用一个空格隔开。 
 
@@ -247,9 +256,9 @@ public class Evaluate {
 求值算法轨迹图：
 ![Alt text](/alg_img/1.jpg)
 
-**集合类数据类型的实现**
+### 集合类数据类型的实现
 
-基于顺序存储结构的集合类型实现：
+#### 基于顺序存储结构的集合类型实现：
 ```java
 public class ResizingArrayStack<Item> implements Iterable<Item> { 
     private Item[] a; 
@@ -311,7 +320,8 @@ public class ResizingArrayStack<Item> implements Iterable<Item> {
     }
 }
 ```
-基于链式存储结构的集合类型实现：
+
+#### 基于链式存储结构的集合类型实现：
 ```java
 public class LinkedStack<Item> implements Iterable<Item> {
     private Node first;
@@ -397,35 +407,35 @@ public class LinkedQueue<Item> implements Iterable {
 
 下压栈：
 
-[补全表达式转为中序表达式](https://github.com/yuzh233/Algorithms/blob/master/src/chapter_1/_3_bag_queue_stack/Ex9.java)
+[补全表达式转为中序表达式](https://github.com/yuzh233/Algorithms/blob/master/src/chapter_1/_3bag_queue_stack/Ex9.java)
 
-[中序表达式转后序表达式](https://github.com/yuzh233/Algorithms/blob/master/src/chapter_1/_3_bag_queue_stack/Ex10.java)
+[中序表达式转后序表达式](https://github.com/yuzh233/Algorithms/blob/master/src/chapter_1/_3bag_queue_stack/Ex10.java)
 
-[后序表达式求值实现简单计算器](https://github.com/yuzh233/Algorithms/blob/master/src/chapter_1/_3_bag_queue_stack/Ex11_EvaluatePostfix.java)
+[后序表达式求值实现简单计算器](https://github.com/yuzh233/Algorithms/blob/master/src/chapter_1/_3bag_queue_stack/Ex11_EvaluatePostfix.java)
 
 队列：
 
-[读取倒数第K个字符串](https://github.com/yuzh233/Algorithms/blob/master/src/chapter_1/_3_bag_queue_stack/Ex15.java)
+[读取倒数第K个字符串](https://github.com/yuzh233/Algorithms/blob/master/src/chapter_1/_3bag_queue_stack/Ex15.java)
 
 链表：
 
-[LinkedStackExercise.java](https://github.com/yuzh233/Algorithms/blob/master/src/chapter_1/_3_bag_queue_stack/LinkedStackExercise.java)
+[LinkedStackExercise.java](https://github.com/yuzh233/Algorithms/blob/master/src/chapter_1/_3bag_queue_stack/LinkedStackExercise.java)
 
 双向链式存储结构集合数据类型实现：
 
-[Ex31_DoubleLinkedStack.java](https://github.com/yuzh233/Algorithms/blob/master/src/chapter_1/_3_bag_queue_stack/Ex31_DoubleLinkedStack.java)
+[Ex31_DoubleLinkedStack.java](https://github.com/yuzh233/Algorithms/blob/master/src/chapter_1/_3bag_queue_stack/Ex31_DoubleLinkedStack.java)
 
 随机背包：
 
-[Ex34_RandomBag.java](https://github.com/yuzh233/Algorithms/blob/master/src/chapter_1/_3_bag_queue_stack/Ex34_RandomBag.java)
+[Ex34_RandomBag.java](https://github.com/yuzh233/Algorithms/blob/master/src/chapter_1/_3bag_queue_stack/Ex34_RandomBag.java)
 
 Josephus生存游戏：
 
-[Ex37_Josephus.java](https://github.com/yuzh233/Algorithms/blob/master/src/chapter_1/_3_bag_queue_stack/Ex37_Josephus.java)
+[Ex37_Josephus.java](https://github.com/yuzh233/Algorithms/blob/master/src/chapter_1/_3bag_queue_stack/Ex37_Josephus.java)
 
 可连接队列、栈：
 
-[Ex47.java](https://github.com/yuzh233/Algorithms/blob/master/src/chapter_1/_3_bag_queue_stack/Ex47.java)
+[Ex47.java](https://github.com/yuzh233/Algorithms/blob/master/src/chapter_1/_3bag_queue_stack/Ex47.java)
 
 
 ## 1.4 算法分析
