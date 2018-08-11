@@ -7,7 +7,7 @@
 *.iml
 *.class
 out
-gen
 .idea/workspace.xml
 algs4-data/
 .gitignore
+Algorithms.iml
