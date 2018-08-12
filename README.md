@@ -4,8 +4,6 @@ date: 2018-08-05
 tags: 数据结构 算法
 ---
 
-[TOC]
-
 #  第一章 基础
 ## 1.1 基础编程模型
 
@@ -23,8 +21,10 @@ cmd运行需要注意的几个地方：
 
 4.如果被编译类有包，需要在该包下执行编译和运行，最终该类的编译和运行命令：
 
-	javac -Djava.ext.dirs=D:\IdeaProjects\Algorithms\lib -encoding utf-8  chapter_1/programming_model/RandomSeq.java
-	java -Djava.ext.dirs=D:\IdeaProjects\Algorithms\lib  chapter_1/programming_model/RandomSeq 10 1 100
+	javac -Djava.ext.dirs=D:\IdeaProjects\Algorithms\lib -encoding utf-8  
+	    chapter_1/programming_model/RandomSeq.java
+	java -Djava.ext.dirs=D:\IdeaProjects\Algorithms\lib  
+	    chapter_1/programming_model/RandomSeq 10 1 100
 
 ```java
 public class RandomSeq {
@@ -439,4 +439,126 @@ Josephus生存游戏：
 
 
 ## 1.4 算法分析
-## 1.5 案例研究：union-find算法
+## 1.5 案例研究：并查集（union-find）算法
+### 1.5.1 问题由来 —— 动态连通性
+#### 问题：
+> 程序从输入中每次读取一对整数 P 和 Q ，如果已知的所有整数对不能证明他们是“相连”的，那么把他们”连起来“，并打印；如果能证明他们是相连的则不处理，继续读取下一对整数对。当两个对象（整数点）相连时称为属于一个**等价类。
+
+#### 概念：
+如果两个对象“相连”是一种等价关系，那么它具有以下特性：
+
+* 自反性：P和P是相连的（就是一个点和自己本身是相连的，em...）；
+* 对称性：若P和Q是相连的，那么Q和P也是相连的；
+* 传递性：若P和Q相连且Q和R相连，那么P和R是相连的
+
+#### 理解并查集
+以上问题其实就是并查集的一个具体案例，关于并查集，在网上搜集了一些资料，明白上面题目要实现什么了。
+> 并查集，在一些有N个元素的集合应用问题中，我们通常是在开始时让每个元素构成一个单元素的集合，然后按一定顺序将属于同一组的元素所在的集合合并，其间要反复查找一个元素在哪个集合中。
+
+“并查集”是一种`不相交集合`的数据类型，初始时并查集中的元素是不相交的，经过一系列的基本操作(Union)，最终合并成一个大的集合。
+
+### 1.5.2 落地实现 —— union-find算法
+整数点、整数对和等价类可以被抽象成不同的名词，这里限定为以下名词。
+
+* 触点 `（实际上的整数点）`
+* 连接 `（一对整数对，注意：不一定相等！）`
+* 连通分量/分量 `（相等的整数对、等价类）`
+
+#### 数据结构
+
+* 用数组`id[]`表示所有连通分量标识符（相等的连接整数对）
+* `id[i]`表示所有连通分量中的一个
+* `数组索引 i` 表示触点（整数点）
+
+#### API
+封装解决问题的基本操作：
+
+* 初始化触点
+* 连接触点
+* 某个触点所在的连通分量
+* 判断两个触点是否在同一个连通分量之中
+* 返回连通分量的数量
+
+```java
+public interface UF {
+    /**
+     * 连接P和Q
+     */
+    void union(int p, int q);
+
+    /**
+     * p所在分量（相等整数对）的标识符
+     */
+    int find(int p);
+
+    /**
+     * p和q存在同一分量返回true
+     */
+    boolean connected(int p, int q);
+
+    /**
+     * 分量的个数
+     */
+    int count();
+}
+```
+
+> 用例开始：程序读取输入N作为数组长度，触点为N个，每个触点都构成了一个只含有自己的分量，一开始有N个连通分量。每个分量的标识符（值）为数组的索引 i ，即：`id[i] = i`  
+
+#### 并查集的第一种实现：quick-find算法
+可以快速进行 find 操作，即可以快速判断两个节点是否连通。
+
+同一连通分量的所有节点的 id 值相等。
+
+但是 union 操作代价却很高，需要将其中一个连通分量中的所有节点 id 值都修改为另一个节点的 id 值。
+
+```java
+public class QuickFind implements UF {
+    private int[] id; // 连通分量标识符集合
+    private int count; // 连通分量数量
+
+    /**
+     * 初始化所有连通分量
+     */
+    QuickFind(int N) {
+        count = N;
+        id = new int[N];
+        for (int i = 0; i < count; i++) {
+            id[i] = i;
+        }
+    }
+    
+    @Override
+    public void union(int p, int q) {
+        int pID = find(p);
+        int qID = find(q);
+
+        if (pID == qID) {
+            // 已经在同一个分量中不做处理
+            return;
+        }
+
+        for (int i = 0; i < count; i++) {
+            if (id[i] == pID) {
+                id[i] = qID;
+            }
+            count--;
+        }
+    }
+
+    @Override
+    public int find(int p) {
+        return id[p];
+    }
+
+    @Override
+    public boolean connected(int p, int q) {
+        return id[p] == id[q];
+    }
+
+    @Override
+    public int count() {
+        return count;
+    }
+}
+```
