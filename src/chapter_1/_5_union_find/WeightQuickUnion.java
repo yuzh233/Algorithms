@@ -1,5 +1,6 @@
 package chapter_1._5_union_find;
 
+import chapter_1._4analysis_of_algorithms.StopWatch;
 import edu.princeton.cs.algs4.StdIn;
 import edu.princeton.cs.algs4.StdOut;
 
@@ -29,8 +30,10 @@ public class WeightQuickUnion implements UF {
 
     @Override
     public void union(int p, int q) {
-        int pRoot = find(p);
-        int qRoot = find(q);
+//        int pRoot = find(p);
+//        int qRoot = find(q);
+        int pRoot = pathCompressionFind(p);
+        int qRoot = pathCompressionFind(q);
         if (pRoot == qRoot) {
             return;
         }
@@ -56,20 +59,25 @@ public class WeightQuickUnion implements UF {
 
     /**
      * 路径压缩的加权 union-find 算法
+     * <p>
+     * 把路径上的全部节点挂在根节点
      *
      * @param p
      * @return
      */
-    public int find2(int p) {
+    public int pathCompressionFind(int p) {
+        // 先向上循环找到根节点
+        int root = p;
+        while (root != id[root]) {
+            root = id[root];
+        }
+        // 再次循环，如果当前节点不是根节点，把当前节点挂在根节点上成为根节点的一级节点。
         while (p != id[p]) {
-            p = id[p];
+            int tem = p; // 先把当前节点索引保存起来
+            p = id[p]; // 把当前节点变为父节点（每个节点的值是以其父节点为索引号的id值），用于执行下一次循环判断。
+            id[tem] = root; // 当前节点的值设为根节点，表明当前节点的父节点是根节点。
         }
-        while (id[p] != p) {
-            int temp = p; // 当前触点索引
-            p = id[p]; // 触点索引变成上一个触点
-            id[temp] = p; // 当前触点值变成根节点
-        }
-        return p;
+        return root;
     }
 
     @Override
@@ -85,16 +93,22 @@ public class WeightQuickUnion implements UF {
     public static void main(String[] args) {
         int N = StdIn.readInt();
         WeightQuickUnion union = new WeightQuickUnion(N);
+        StopWatch watch = new StopWatch();
         while (!StdIn.isEmpty()) {
             int p = StdIn.readInt();
             int q = StdIn.readInt();
             if (union.connected(p, q)) {
                 continue;
             }
+            /**
+             * 使用加权 union-find 花费时间：48.855s
+             * 使用压缩路径后的加权 union-find 花费时间：42.498s
+             */
             union.union(p, q);
             StdOut.println("union:" + p + " " + q);
         }
         StdOut.println(union.count + " components");
+        StdOut.println("time:" + watch.elapsedTime());
     }
 }
 

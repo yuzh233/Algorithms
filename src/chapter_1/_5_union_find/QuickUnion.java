@@ -34,8 +34,9 @@ public class QuickUnion implements UF {
 
     @Override
     public int find(int p) {
-        // 当id[p]的值是本身，说明它是根节点（分量名）
+        // 当id[p]的值是本身，说明它是根节点（分量名）；若不是，向上循环找到根节点。
         while (p != id[p]) {
+            // 当前节点不是根节点，向上找父节点
             p = id[p];
         }
         return p; // 所在分量就是根节点

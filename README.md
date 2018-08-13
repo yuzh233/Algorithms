@@ -13,13 +13,13 @@ tags: 数据结构 算法
 
 cmd运行需要注意的几个地方：
 
-1.我们的工程一般使用utf-8编码，但是windows系统默认gbk编码，所以编译javac会出现“找不到gbk编码的字符映射”。解决办法：编译时指定参数 `-encoding utf-8`
+1. 我们的工程一般使用utf-8编码，但是windows系统默认gbk编码，所以编译javac会出现“找不到gbk编码的字符映射”。解决办法：编译时指定参数 `-encoding utf-8`
 
-2.“找不到某个类”，程序中引用了非当前目录的jar文件，在本路径编译会找不到jar包，需要执行参数：`-Djava.ext.dirs=jar包作为路径`。
+2. “找不到某个类”，程序中引用了非当前目录的jar文件，在本路径编译会找不到jar包，需要执行参数：`-Djava.ext.dirs=jar包作为路径`。
 
-3.“无法运行主类”，检查是否配置了classpath环境变量，`CLASSPATH=".;%JAVA_HOME%\lib;%JAVA_HOME%\lib\tools.jar;"`
+3. “无法运行主类”，检查是否配置了classpath环境变量，`CLASSPATH=".;%JAVA_HOME%\lib;%JAVA_HOME%\lib\tools.jar;"`
 
-4.如果被编译类有包，需要在该包下执行编译和运行，最终该类的编译和运行命令：
+4. 如果被编译类有包，需要在该包下执行编译和运行，最终该类的编译和运行命令：
 
 	javac -Djava.ext.dirs=D:\IdeaProjects\Algorithms\lib -encoding utf-8  
 	    chapter_1/programming_model/RandomSeq.java
@@ -566,7 +566,8 @@ public class QuickFind implements UF {
 ### 实现二：quick-union 算法
 #### 数据结构：树
 
-1. 同样以 `id[]` 表示每一个触点的值，但触点的值不是分量的值，每一个触点值是指向其父触点（节点）的名称的`链接`，该触点最终的值是根节点的值（父节点指向父节点，直到指向根节点）。
+1. 同样以 `id[]` 表示每一个节点（触点）的值，但节点的值不是分量的值，每一个节点值是以其父节点的`索引号`的id[]值，该节点最终的值是根节点的值（父节点指向父节点，直到指向根节点）。
+   * 比如`节点4（id[4]=9）` 是 `节点8` 的父节点，那么节点8`id[8]`的值就是id[4]，即：id[8] = id[4] = 9
 
 2. 初始化时每个触点的值都是该触点的索引，并且都是根节点。
 
@@ -616,7 +617,7 @@ public class QuickUnion implements UF {
 
     @Override
     public int find(int p) {
-        // 当id[p]的值是本身，说明它是根节点（分量名）
+        // 当id[p]的值是本身，说明它是根节点（分量名）；若不是，向上循环找到根节点。
         while (p != id[p]) {
             p = id[p];
         }
@@ -707,4 +708,53 @@ public class WeightQuickUnion implements UF {
 ```
 #### 轨迹图：
 ![Alt text](/alg_img/3.jpg)
+
+### 实现四：路径压缩的加权 quick-union 算法
+#### 算法分析
+路径压缩的加权 quick-union 算法是为了优化find()操作，减少查找父节点的次数，从而提升查找的效率；
+
+使用路径压缩的加权 quick-union 算法是解决动态连通性问题的最优解；
+
+它将每一个子节点都挂在根节点形成一个近似扁平的树状结构；
+
+每次查找指定节点的根元素（分量）时，都将路径上（该节点的所有父节点）遇到所有节点挂在根节点之下；
+
+压缩加权后的算法find()效率与 quick-find 的效率非常接近。
+
+```java
+public class WeightQuickUnion implements UF {
+    public int pathCompressionFind(int p) {
+        // 先向上循环找到根节点
+        int root = p;
+        while (root != id[root]) {
+            root = id[root];
+        }
+        // 再次循环，如果当前节点不是根节点，把当前节点挂在根节点上成为根节点的一级节点。
+        while (p != id[p]) {
+            int tem = p; 
+            p = id[p]; 
+            id[tem] = root; 
+        }
+        return root;
+    }
+    
+    public void union(int p, int q) {
+        int pRoot = pathCompressionFind(p);
+        int qRoot = pathCompressionFind(q);
+        if (pRoot == qRoot) {
+            return; 
+        }
+        // 不再是把p的根节点的爸爸设为q的根节点了，而是比较p的分量个数和q的分量个数，分量个数小的认分量个数大的当爸爸
+        if (sz[pRoot] > sz[qRoot]) {
+            id[qRoot] = pRoot;
+            sz[pRoot] += sz[qRoot]; 
+        } else {
+            // 当p分量大小 <= q分量大小时，默认q的根节点认q的根节点当爸爸
+            id[pRoot] = qRoot;
+            sz[qRoot] += sz[pRoot]; 
+        }
+        count--; 
+    }
+}
+```
 
