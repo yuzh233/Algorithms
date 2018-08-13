@@ -70,13 +70,6 @@ public class QuickFind implements UF {
             StdOut.println("union:" + p + " " + q);
         }
         StdOut.println(quickFind.count + " components");
-        quickFind.print();
-    }
-
-    public void print() {
-        for (int i = 0; i < id.length; i++) {
-            StdOut.print(id[i] + " ");
-        }
     }
 }
 

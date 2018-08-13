@@ -64,15 +64,8 @@ public class QuickUnion implements UF {
             StdOut.println("union:" + p + " " + q);
         }
         StdOut.println(quickUnion.count + " components");
-        quickUnion.print();
-    }
-
-    public void print() {
-        for (int i = 0; i < id.length; i++) {
-            StdOut.print(id[i] + " ");
-        }
     }
 }
 
 // javac -Djava.ext.dirs=D:\IdeaProjects\Algorithms\lib -Xlint:deprecation  -Xlint:unchecked -encoding utf-8  chapter_1\_5_union_find\QuickUnion.java
-// java -Djava.ext.dirs=D:\IdeaProjects\Algorithms\lib chapter_1/_5_union_find/QuickUnion < D:/IdeaProjects/Algorithms/algs4-data/tinyUF.txt
+// java -Djava.ext.dirs=D:\IdeaProjects\Algorithms\lib chapter_1/_5_union_find/QuickUnion < D:/IdeaProjects/Algorithms/algs4-data/mediumUF.txt
