@@ -54,6 +54,24 @@ public class WeightQuickUnion implements UF {
         return p;
     }
 
+    /**
+     * 路径压缩的加权 union-find 算法
+     *
+     * @param p
+     * @return
+     */
+    public int find2(int p) {
+        while (p != id[p]) {
+            p = id[p];
+        }
+        while (id[p] != p) {
+            int temp = p; // 当前触点索引
+            p = id[p]; // 触点索引变成上一个触点
+            id[temp] = p; // 当前触点值变成根节点
+        }
+        return p;
+    }
+
     @Override
     public boolean connected(int p, int q) {
         return find(p) == find(q);
