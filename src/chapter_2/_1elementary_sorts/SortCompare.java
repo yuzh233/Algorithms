@@ -20,7 +20,7 @@ public class SortCompare {
             new Selection().sort(a);
         }
         if (alg.equals("Shell")) {
-//            new Shell().sort(a);
+            new Shell().sort(a);
         }
         if (alg.equals("Merge")) {
 //            new Merge().sort(a);
@@ -44,7 +44,14 @@ public class SortCompare {
             }
             total += time(alg, a); // 计算T次时间总和
         }
+        show(a);
         return total;
+    }
+
+    public static void show(Double[] a) {
+        for (int i = 0; i < a.length; i++) {
+            StdOut.println(a[i]);
+        }
     }
 
     public static void main(String[] args) {
@@ -53,13 +60,14 @@ public class SortCompare {
         int N = Integer.parseInt(args[2]);
         int T = Integer.parseInt(args[3]);
         double t1 = timeRandomInput(alg1, N, T); // 算法1的总时间
+        StdOut.printf("the %s algorithm takes %.1f seconds.\n", alg1, t1);
         double t2 = timeRandomInput(alg2, N, T); // 算法2的总时间
         StdOut.printf("the %s algorithm takes %.1f seconds.\n", alg2, t2);
-        StdOut.printf("the %s algorithm takes %.1f seconds.\n", alg1, t1);
     }
 }
 
 
 // javac -Djava.ext.dirs=D:\IdeaProjects\Algorithms\lib -Xlint:deprecation -Xlint:unchecked -encoding utf-8  chapter_2\_1elementary_sorts\SortCompare.java
-// java -Djava.ext.dirs=D:\IdeaProjects\Algorithms\lib chapter_2/_1elementary_sorts/SortCompare Insertion Selection 1000 100
+// java -Djava.ext.dirs=D:\IdeaProjects\Algorithms\lib chapter_2/_1elementary_sorts/SortCompare Insertion Selection 10000 100
+// java -Djava.ext.dirs=D:\IdeaProjects\Algorithms\lib chapter_2/_1elementary_sorts/SortCompare Shell Insertion 10000 100
 

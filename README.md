@@ -877,7 +877,7 @@ public class Insertion extends Example {
 
 速度对比：
 
-- 1000条数据排序100次，选择排序花费0.1s，插入排序花费0.4s；
+- 1000条数据排序100次，选择排序花费0.4s，插入排序花费0.1s；
 - 10000条数据排序100次，选择排序花费43.6s，插入排序花费10.2s；
 
 结论：
@@ -919,6 +919,62 @@ public class SortCompare {
         double t2 = timeRandomInput(alg2, N, T); // 算法2的总时间
         StdOut.printf("the %s algorithm takes %.1f seconds.\n", alg2, t2); 
         StdOut.printf("the %s algorithm takes %.1f seconds.\n", alg1, t1); 
+    }
+}
+```
+## 希尔排序
+希尔排序是插入排序的增强版，是为了改进插入排序对于处理大规模乱序数组排序速度过慢的问题。实质上是`分组插入排序`，该方法又称`缩小增量排序`。
+
+> 该方法的基本思想是：先将整个待排元素序列分割成若干个子序列（由相隔某个“增量”的元素组成的）分别进行直接插入排序，然后依次缩减增量再进行排序，待整个序列中的元素基本有序（增量足够小）时，再对全体元素进行一次直接插入排序。因为直接插入排序在元素基本有序的情况下（接近最好情况），效率是很高的，因此希尔排序在时间效率上比前两种方法有较大提高。
+
+序列分组轨迹图：
+
+参考：https://blog.csdn.net/IWantToHitRen/article/details/51583047
+
+对于希尔排序和插入排序速度的对比：
+- 10000条数据排序100次，插入排序用时12.3s，希尔排序用时0.3s!；
+- 50000条数据排序100次，插入排序用时380.7s，希尔排序用时1.8s!；
+
+以下是结合网上对希尔排序的理解实现的算法以及《算法 第四版》原文中的算法。
+```java
+public class Shell extends Example {
+
+    /**
+     * 根据网上总结自己实现的算法
+     */
+    @Override
+    public void sort(Comparable[] a) {
+        int N = a.length;
+        for (int gap = N / 2; gap > 0; gap /= 2) {  // gap：增量（步数），每次循环增量减少一倍，直至增量为1（此时对全部元素进行插入排序）完成排序。
+            for (int i = 0; i < gap; i++) { // 把整体序列分为若干子序列。a[i]是每一组的第一个元素
+                for (int j = i + gap; j < N; j += gap) { // 每间隔一个增量，获得一个该组的元素。
+                    int tarIndex = j; // 目标元素索引，当前元素索引。
+                    for (int k = tarIndex; k > i && less(a[k], a[k - gap]); k -= gap) { // 对子序列进行插入排序，将该元素与本组左边所有元素进行比较。
+                        exch(a, k, k - gap);
+                    }
+                }
+            }
+        }
+    }
+    
+    /**
+     * 原文的算法，增量使用了递增序列，有时间再来理解。
+     */
+    public void sort3(Comparable[] a) {
+        int N = a.length;
+        int h = 1;
+        while (h < N / 3) {
+            h = 3 * h + 1;
+        }
+        while (h >= 1) {
+            // 子数组插入排序
+            for (int i = h; i < N; i++) {
+                for (int j = i; j >= h && less(a[j], a[j - h]); j -= h) {
+                    exch(a, j, j - h);
+                }
+            }
+            h = h / 3;
+        }
     }
 }
 ```

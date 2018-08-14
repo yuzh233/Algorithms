@@ -1,6 +1,5 @@
 package chapter_2._1elementary_sorts;
 
-import edu.princeton.cs.algs4.In;
 import edu.princeton.cs.algs4.StdOut;
 
 /**
