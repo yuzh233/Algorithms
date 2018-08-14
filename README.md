@@ -21,10 +21,8 @@ cmd运行需要注意的几个地方：
 
 4. 如果被编译类有包，需要在该包下执行编译和运行，最终该类的编译和运行命令：
 
-	javac -Djava.ext.dirs=D:\IdeaProjects\Algorithms\lib -encoding utf-8  
-	    chapter_1/programming_model/RandomSeq.java
-	java -Djava.ext.dirs=D:\IdeaProjects\Algorithms\lib  
-	    chapter_1/programming_model/RandomSeq 10 1 100
+	javac -Djava.ext.dirs=D:\IdeaProjects\Algorithms\lib -encoding utf-8 chapter_1/programming_model/RandomSeq.java
+	java -Djava.ext.dirs=D:\IdeaProjects\Algorithms\lib chapter_1/programming_model/RandomSeq 10 1 100
 
 ```java
 public class RandomSeq {
@@ -758,3 +756,169 @@ public class WeightQuickUnion implements UF {
 }
 ```
 
+# 第二章 排序
+待排序的元素需要实现 Java 的 Comparable 接口，该接口有 compareTo() 方法，可以用它来判断两个元素的大小关系。
+
+定义算法模板类API
+```java
+public abstract class Example {
+    
+    /**
+     * 具体排序算法实现
+     */
+    public abstract void sort(Comparable[] a);
+
+    /**
+     * 对元素进行比较
+     * @return first < second ? true : false
+     */
+    public static boolean less(Comparable first, Comparable second) {
+        return first.compareTo(second) < 0;
+    }
+
+    /**
+     * 把两个元素交换位置
+     */
+    public static void exch(Comparable[] a, int i, int j) {
+        Comparable tem = a[i];
+        a[i] = a[j];
+        a[j] = tem;
+    }
+    
+    /**
+     * 返回序列是否有序（asc）
+     */
+    public static boolean isSorted(Comparable[] a) {
+        for (int i = 1; i < a.length; i++) {
+            if (less(a[i], a[i - 1])) {
+                // 后面的元素 < 前面的元素 不是升序排列 返回false
+                return false;
+            }
+        }
+        return true;
+    }
+    
+    public static void show(Comparable[] a) {
+        for (int i = 0; i < a.length; i++) {
+            StdOut.print(a[i] + " ");
+        }
+        StdOut.println();
+    }
+}
+```
+## 选择排序
+首先在数组中找到最小的元素，将其和第一个元素交换；然后继续在第一个元素之后的元素中寻找最小元素，将其和第二个元素交换... 循环往复直到将整个数组排序。
+
+- 外循环遍历数组的每个当前元素
+- 内循环遍历当前元素之后的所有元素寻找最小值
+
+### 算法分析
+优点：数据移动次数最少，选择排序的交换次数和数组长度N成`线性关系`，其他排序算法不具备该特征。
+
+缺点：运行时间与输入（整个序列的值）无关，一个值相同的或有序的序列和一个随机无序的序列进行排序的时间一样长。
+
+```java
+public class Selection extends Example {
+    @Override
+    public void sort(Comparable[] a) {
+        int N = a.length;
+        for (int i = 0; i < N; i++) {
+            int minIndex = i;
+            for (int j = i + 1; j < N; j++) {
+                if (less(a[j], a[minIndex])) {
+                    minIndex = j; // 如果后续元素小于最小元素，把后续元素索引赋给最小元素索引。
+                }
+                exch(a, i, minIndex); // 交换原最小元素与新最小元素位置
+            }
+        }
+    }
+    public static void main(String[] args) {
+        String[] a = new In().readAllStrings();
+        new Selection().sort(a);
+        assert isSorted(a); // 验证：确认排序后的算法是有序的，当序列元素相同时无法通过验证。
+        show(a);
+    }
+}
+```
+
+## 插入排序
+首先从数组的第二个元素（目标元素）开始，当目标元素小于前面的元素，交换两者位置（否则不变）；然后目标元素变为第三个元素，将其与第二个元素比较，若小则交换位置（此时目标元素索引为1），再将其与第一个元素对比，循环往复...
+
+- 外循环遍历每一个需要插入的目标元素
+- 内循环将目标元素与其左边的每一个元素对比、交换位置，直至目标元素被插入到了合适的位置。
+- 目标元素（a[i]）从左到右移动时，其左侧的元素始终时有序的，当其移动到了最右边，数组也完成了排序。
+
+### 算法分析
+插入排序所需的时间取决于数组中元素的初始位置。因为当元素有序时不会进行交换，对于一个元素很大的且元素有序（或接近有序）的序列进行排序会比随机顺序的序列进行排序要快得多。
+
+```java
+public class Insertion extends Example {
+    @Override
+    public void sort(Comparable[] a) {
+        int N = a.length;
+        for (int i = 1; i < N; i++) {
+            // 将当前元素 a[i] 与 其左边的所有元素对比、交换位置
+            for (int j = i; j > 0 && less(a[j], a[j - 1]); j--) {
+                // 后面的元素比前面的元素小才进行排序
+                exch(a, j, j - 1);
+            }
+        }
+    }
+}
+```
+大幅度提高插入排序的速度，只需要在内循环中将较大的元素向右移动而不总是交换两个元素（这样访问数组的次数会减半），实现见 [练习]()。
+
+## 选择排序与插入排序比较
+从直观上来说：
+- 选择排序不会访问索引左侧的元素（每次都是从目标元素的索引右边遍历所有元素取最小值进而与目标元素交换位置）
+- 插入排序不会访问索引右侧的元素（每次都是目标元素与其左边的每一个元素做对比进而交换位置）
+
+首先规定输入模型：数组中的元素随机排序，且主键值不重复。
+
+速度对比：
+
+- 1000条数据排序100次，选择排序花费0.1s，插入排序花费0.4s；
+- 10000条数据排序100次，选择排序花费43.6s，插入排序花费10.2s；
+
+结论：
+
+对于随机排序的无重复主键，插入排序和选择排序的运行时间都是平方级别的。
+
+```java
+public class SortCompare {
+    public static double time(String alg, Comparable[] a) {
+        StopWatch watch = new StopWatch();
+        if (alg.equals("Insertion")) {
+            new Insertion().sort(a);
+        }
+        if (alg.equals("Selection")) {
+            new Selection().sort(a);
+        }
+        return watch.elapsedTime();
+    }
+    
+    //使用alg算法将长度为N的数组排序T次
+    public static double timeRandomInput(String alg, int N, int T) {
+        double total = 0.0;
+        Double[] a = new Double[N]; // 目标数组
+        for (int t = 0; t < T; t++) {
+            for (int i = 0; i < N; i++) {
+                a[i] = StdRandom.uniform(); // 生成随机值
+            }
+            total += time(alg, a); // 计算T次时间总和
+        }
+        return total;
+    }
+
+    public static void main(String[] args) {
+        String alg1 = args[0];
+        String alg2 = args[1];
+        int N = Integer.parseInt(args[2]);
+        int T = Integer.parseInt(args[3]);
+        double t1 = timeRandomInput(alg1, N, T); // 算法1的总时间
+        double t2 = timeRandomInput(alg2, N, T); // 算法2的总时间
+        StdOut.printf("the %s algorithm takes %.1f seconds.\n", alg2, t2); 
+        StdOut.printf("the %s algorithm takes %.1f seconds.\n", alg1, t1); 
+    }
+}
+```
