@@ -440,7 +440,7 @@ Josephus生存游戏：
 ## 1.5 案例研究：并查集（union-find）算法
 ### 问题由来 —— 动态连通性
 #### 问题：
-> 程序从输入中每次读取一对整数 P 和 Q ，如果已知的所有整数对不能证明他们是“相连”的，那么把他们”连起来“，并打印；如果能证明他们是相连的则不处理，继续读取下一对整数对。当两个对象（整数点）相连时称为属于一个*等价类*。
+> 程序从输入中每次读取一对整数 P 和 Q ，如果已知的所有整数对不能证明他们是“相连”的，那么把他们“连起来”，并打印；如果能证明他们是相连的则不处理，继续读取下一对整数对。当两个对象（整数点）相连时称为属于一个*等价类*。
 
 #### 概念：
 如果两个对象“相连”是一种等价关系，那么它具有以下特性：
@@ -978,3 +978,68 @@ public class Shell extends Example {
     }
 }
 ```
+## 归并排序
+归并排序的核心是归并操作，归并排序每次将数组 `递归的` 拆分成两半分别排序，再将两半的结果 `合并` 起来最终实现整个数组的排序。
+
+### 归并操作
+归并操作的前提是数组的两边是分别 `有序` 的，将一个“两边有序的数组”合并成一个“整体有序的数组”。
+```java
+public class Merge extends Example {
+    private static Comparable aux[]; // 辅助数组，用于合并操作。
+    
+    //TODO sort()
+    
+    public static void merge(Comparable[] a, Comparable[] aux, int lo, int mid, int hi) {
+        int le = lo;
+        int ri = mid + 1;
+
+        for (int k = lo; k <= hi; k++) {
+            aux[k] = a[k];
+        }
+
+        for (int k = lo; k <= hi; k++) {
+            if (le > mid) {
+                a[k] = aux[ri++]; // 左边元素用尽，将右边元素一个一个放入a[]
+            } else if (ri > hi) {
+                a[k] = aux[le++]; // 右边元素用尽，将左边元素一个一个放入a[]
+            } else if (less(aux[ri], aux[le])) {
+                a[k] = aux[ri++]; // 右边元素小于左边元素，右边元素放入a[]，右边元素索引+1
+            } else {
+                a[k] = aux[le++]; // 左边元素小于右边元素，左边元素放入a[]，左边元素索引+1
+            }
+        }
+    }
+}
+```
+
+### 自顶向下归并排序
+归并排序不断（递归）的将大数组插拆分为两半，直到不可再拆（小数组仅剩“左右”两个元素），再将两边的数组合并成一个整体有序的大数组。
+```java
+public class Merge extends Example {
+    private static Comparable aux[]; // 辅助数组，用于合并操作。
+    
+    @Override
+    public void sort(Comparable[] a) {
+        aux = new Comparable[a.length];
+        sort(a, 0, a.length - 1);
+    }
+
+    private void sort(Comparable[] a, int lo, int hi) {
+        if (hi <= lo) return;
+        int mid = lo + (hi - lo) / 2;
+        sort(a, lo, mid); // 左半边排序
+        sort(a, mid + 1, hi); // 右半边排序
+        merge(a, aux, lo, mid, hi); // 合并子数组
+    }
+}
+```
+每一个节点都是 merge() 操作形成的子数组。当数组不可再分（递归到了最小情况），merge()通过交换前后元素实现排序。
+
+![Alt text](/alg_img/4.jpg)
+
+#### 改进
+[对于小规模数组使用插入排序](https://github.com/yuzh233/Algorithms/blob/master/src/chapter_2/_2mergesort/Ex11.java)
+
+[测试数组是否有序](https://github.com/yuzh233/Algorithms/blob/master/src/chapter_2/_2mergesort/Ex11.java)
+
+### 自底向上归并排序

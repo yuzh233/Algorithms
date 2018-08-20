@@ -1,6 +1,8 @@
 package chapter_2._1elementary_sorts;
 
 import chapter_1._4analysis_of_algorithms.StopWatch;
+import chapter_2._2mergesort.Ex11;
+import chapter_2._2mergesort.Merge;
 import edu.princeton.cs.algs4.StdOut;
 import edu.princeton.cs.algs4.StdRandom;
 
@@ -23,7 +25,7 @@ public class SortCompare {
             new Shell().sort(a);
         }
         if (alg.equals("Merge")) {
-//            new Merge().sort(a);
+            new Merge().sort(a);
         }
         if (alg.equals("Quick")) {
 //            new Quick().sort(a);
@@ -60,8 +62,8 @@ public class SortCompare {
         int N = Integer.parseInt(args[2]);
         int T = Integer.parseInt(args[3]);
         double t1 = timeRandomInput(alg1, N, T); // 算法1的总时间
-        StdOut.printf("the %s algorithm takes %.1f seconds.\n", alg1, t1);
         double t2 = timeRandomInput(alg2, N, T); // 算法2的总时间
+        StdOut.printf("the %s algorithm takes %.1f seconds.\n", alg1, t1);
         StdOut.printf("the %s algorithm takes %.1f seconds.\n", alg2, t2);
     }
 }
