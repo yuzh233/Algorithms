@@ -1141,7 +1141,7 @@ public class Quick extends Example {
 
 2. 三取样切分：选取较优的切点元素来提高性能。将子数组的一小部分元素中的中位数作为切点来切分数组效果为好，一般取3个元素。
 
-3. 对于含有大量重复元素的数组，该算法还是会继续切分数组，增加不必要的性能开销。解决方案：三向切分算法：[Quick3way.java](https://github.com/yuzh233/Algorithms/blob/master/src/chapter_2/_2quicksort/Quick3way.java)
+3. 对于含有大量重复元素的数组，该算法还是会继续切分数组，增加不必要的性能开销。解决方案：三向切分算法：[Quick3way.java](https://github.com/yuzh233/Algorithms/blob/master/src/chapter_2/_3quicksort/Quick3way.java)
 
 以上改进 均未！实现！太搞脑子了😣~~~
    
