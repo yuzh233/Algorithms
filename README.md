@@ -1043,3 +1043,40 @@ public class Merge extends Example {
 [测试数组是否有序](https://github.com/yuzh233/Algorithms/blob/master/src/chapter_2/_2mergesort/Ex11.java)
 
 ### 自底向上归并排序
+先归并微型数组，再成对归并得到的子数组，直到归并形成一个大数组，排序结束。
+
+- 第一轮：将大数组的每一个元素当作一个子数组（最小的子数组），`两两归并` 子数组（将大小为1的子数组归并成大小为2的子数组）。
+
+- 第二轮：一轮归并之后每个子数组存在 2 个元素，再 `四四归并` 子数组（将大小为2的子数组归并为大小为4的子数组）。
+
+- 第三轮：二轮归并之后每个子数组存在 4 个元素，再 `八八归并` 子数组（将大小为4的子数组归并为大小为8的子数组）。
+
+- ...... 如此往复，直到子数组大小 >= 待排序的大数组，完成了排序。
+```java
+public class MergeBU extends Example {
+    private static Comparable aux[];
+
+    @Override
+    public void sort(Comparable[] a) {
+        int N = a.length;
+        aux = new Comparable[N];
+        for (int sz = 1; sz < N; sz = sz + sz) { // 控制子数组大小呈倍数递增
+            /**
+             * 遍历每个子数组
+             *  lo                                  每个子数组的第一个元素
+             *  lo < N - sz                         控制最后一个子数组的开头
+             *  lo = lo + sz + sz                   跳到下一个子数组开头
+             *  Math.min(lo + sz + sz - 1, N - 1)   最后一个子数组的大小有可能不是sz的整数倍，lo + sz + sz - 1可能会出现数组越界。
+             */
+            for (int lo = 0; lo < N - sz; lo = lo + sz + sz) {
+                int mid = lo + sz - 1;
+                int hi = Math.min(lo + sz + sz - 1, N - 1);
+                merge(a, aux, lo, mid, hi);
+            }
+        }
+        assert isSorted(a);
+    }
+}
+```
+可视图：
+![Alt text](/alg_img/5.jpg)

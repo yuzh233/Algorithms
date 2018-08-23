@@ -59,7 +59,7 @@ public class Merge extends Example {
 //        merge(a, 0, 4, a.length - 1);
 
         // test sort()
-        Comparable[] a = {5, 7, 2, 1, 4, 8, 6, 9, 0, 3};
+        Comparable[] a = {0, 2, 4, 6, 8, 1, 3, 5, 7, 9};
         new Merge().sort(a);
         for (int i = 0; i < a.length; i++) {
             StdOut.print(a[i] + " ");
