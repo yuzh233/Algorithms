@@ -33,8 +33,8 @@ public class Merge extends Example {
      * @param hi  high 最后一个元素索引
      */
     public static void merge(Comparable[] a, Comparable[] aux, int lo, int mid, int hi) {
-        int le = lo;
-        int ri = mid + 1;
+        int le = lo; // 左序列指针
+        int ri = mid + 1; // 右序列指针
 
         for (int k = lo; k <= hi; k++) {
             aux[k] = a[k];
