@@ -1011,7 +1011,6 @@ public class Merge extends Example {
     }
 }
 ```
-
 ### 自顶向下归并排序
 归并排序不断（递归）的将大数组插拆分为两半，直到不可再拆（小数组仅剩“左右”两个元素），再将两边的数组合并成一个整体有序的大数组。
 ```java
@@ -1036,7 +1035,6 @@ public class Merge extends Example {
 每一个节点都是 merge() 操作形成的子数组。当数组不可再分（递归到了最小情况），merge()通过交换前后元素实现排序。
 
 ![Alt text](/alg_img/4.jpg)
-
 #### 改进
 [对于小规模数组使用插入排序](https://github.com/yuzh233/Algorithms/blob/master/src/chapter_2/_2mergesort/Ex11.java)
 
@@ -1080,3 +1078,60 @@ public class MergeBU extends Example {
 ```
 可视图：
 ![Alt text](/alg_img/5.jpg)
+
+## 快速排序
+快速排序同归并排序一样是一种分治的排序算法。它通过 `切分` 递归的将数组分为两个部分，对两个部分分别排序，并保证左边的元素都 <= `切点`，右边的元素都 >= `切点`。  
+
+每次切分都能保证子数组左边的元素小于切点，右边的元素大于切点。通过递归，对左半边和右半边数组再次切分，最终达到整个数组的有序。
+
+切分算法：
+
+- 切点定为子数组的第一个元素（可以是任意元素）
+
+- 指针 i 从左往右扫描 `大于` 切点的值，找到即退出扫描；指针 j 从右往左扫描 `小于` 切点的值，找到即退出扫描。
+
+- 交换 a[i] 与 a[j] 的位置，小的值放在左边，大的值放在右边。
+
+- 若 i 扫描完毕找不到最大值，说明 切点 就是最大值；若 j 扫描完毕找不到最小值，说明 切点 就是最小值
+
+- 为什么指针相遇`(i >= j)`切分结束？因为相遇了代表左右元素都已遍历完毕并均已交换过元素。
+
+- 指针相遇（双向扫描完毕）之后，交换 切点(v) 与 a[j] 的值，此时a[j]是最后一个小于 v 的值，而切点到了数组中间，最后返回切点索引。
+
+```java
+public class Quick extends Example {
+    @Override
+    public void sort(Comparable[] a) {
+        StdRandom.shuffle(a);
+        sort(a, 0, a.length - 1);
+    }
+
+    private void sort(Comparable[] a, int lo, int hi) {
+        if (hi <= lo) return;
+        int j = partition(a, lo, hi); // 切分
+        sort(a, lo, j - 1); // 左半边排序
+        sort(a, j + 1, hi); // 右半边排序
+    }
+
+    private int partition(Comparable[] a, int lo, int hi) {
+        int i = lo, j = hi + 1; // 左右扫描的指针
+        Comparable v = a[lo]; // 切分的元素
+        while (true) {
+            while (less(a[++i], v)) { // 指针 i 从左往右扫描大于v的值
+                if (i == hi) break;
+            }
+            while (less(v, a[--j])) { // 指针 j 从右往左扫描小于v的值
+                if (j == lo) break;
+            }
+            if (i >= j) break; // 为什么 i >= j 退出外循环？
+            exch(a, i, j); // 小值放左边，大值放右边。
+        }
+        exch(a, lo, j);
+        return j;
+    }
+}
+```
+快速排序最好的情况下是每次都正好能将数组对半分，这样递归调用次数才是最少的。
+
+最坏的情况下，第一次从最小的元素切分，第二次从第二小的元素切分，如此这般。为了防止数组最开始就是有序的，在进行快速排序时需要随机打乱数组。
+
