@@ -1,6 +1,7 @@
 package chapter_2._3quicksort;
 
 import chapter_2._1elementary_sorts.Example;
+import chapter_2._1elementary_sorts.Insertion;
 import edu.princeton.cs.algs4.StdRandom;
 
 /**
@@ -15,7 +16,12 @@ public class Quick extends Example {
     }
 
     private void sort(Comparable[] a, int lo, int hi) {
-        if (hi <= lo) return;
+        // if (hi <= lo) return;
+        // 对于小数组，改用插入排序。
+        if (hi <= lo + 15) {
+            new Insertion().sort(a);
+            return;
+        }
         int j = partition(a, lo, hi); // 切分
         sort(a, lo, j - 1); // 左半边排序
         sort(a, j + 1, hi); // 右半边排序

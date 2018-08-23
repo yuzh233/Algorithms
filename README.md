@@ -1038,6 +1038,8 @@ public class Merge extends Example {
 
 [测试数组是否有序](https://github.com/yuzh233/Algorithms/blob/master/src/chapter_2/_2mergesort/Ex11.java)
 
+有参考价值博客：[图解排序算法(四)之归并排序](http://www.cnblogs.com/chengxiao/p/6194356.html)
+
 ### 自底向上归并排序
 先归并微型数组，再成对归并得到的子数组，直到归并形成一个大数组，排序结束。
 
@@ -1092,10 +1094,11 @@ public class MergeBU extends Example {
 
 - 若 i 扫描完毕找不到最大值，说明 切点 就是最大值；若 j 扫描完毕找不到最小值，说明 切点 就是最小值
 
-- 为什么指针相遇`(i >= j)`切分结束？因为相遇了代表全部元素都已遍历完毕并均已交换过元素。
+- 为什么指针相遇`(i >= j)`切分结束？因为相遇了代表所有元素都已遍历完毕。
 
 - 指针相遇（双向扫描完毕）之后，交换 切点(v) 与 a[j] 的值，此时a[j]是最后一个小于 v 的值，而切点到了数组中间，最后返回切点索引。
 
+博客参考，对于理解很有帮助：[坐在马桶上看算法：快速排序](http://developer.51cto.com/art/201403/430986.htm)
 ```java
 public class Quick extends Example {
     @Override
@@ -1133,3 +1136,13 @@ public class Quick extends Example {
 
 最坏的情况下，第一次从最小的元素切分，第二次从第二小的元素切分，如此这般。为了防止数组最开始就是有序的，在进行快速排序时需要随机打乱数组。
 
+### 改进
+1. 对于小数组，使用插入排序。只需将递归结束条件从 `if (hi <= lo) return;` 改为：`if (hi <= lo + 15) { new Insertion().sort(a); return; }`
+
+2. 三取样切分：选取较优的切点元素来提高性能。将子数组的一小部分元素中的中位数作为切点来切分数组效果为好，一般取3个元素。
+
+3. 对于含有大量重复元素的数组，该算法还是会继续切分数组，增加不必要的性能开销。解决方案：三向切分算法：[Quick3way.java](https://github.com/yuzh233/Algorithms/blob/master/src/chapter_2/_2quicksort/Quick3way.java)
+
+以上改进 均未！实现！太搞脑子了😣~~~
+   
+    
