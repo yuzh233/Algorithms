@@ -1156,10 +1156,36 @@ public class Quick extends Example {
 ### 改进
 1. 对于小数组，使用插入排序。只需将递归结束条件从 `if (hi <= lo) return;` 改为：`if (hi <= lo + 15) { new Insertion().sort(a); return; }`
 
-2. 三取样切分：选取较优的切点元素来提高性能。将子数组的一小部分元素中的中位数作为切点来切分数组效果为好，一般取3个元素。
+2. 三取样切分：选取较优的切点元素来提高性能。将子数组的一小部分元素中的中位数作为切点来切分数组效果为好，一般取3个元素。参考：[图解排序算法(五)之快速排序——三数取中法](http://www.cnblogs.com/chengxiao/p/6262208.html)
 
 3. 对于含有大量重复元素的数组，该算法还是会继续切分数组，增加不必要的性能开销。解决方案：三向切分算法：[Quick3way.java](https://github.com/yuzh233/Algorithms/blob/master/src/chapter_2/_3quicksort/Quick3way.java)
 
 以上改进 均未！实现！太搞脑子了😣~~~
    
-    
+## 优先队列
+在某些拥有大量输入N（数十亿甚至无限）的用例中，需要在大量输入中取最大（或最小）的前M个值。解决这种需求，数组排序的代价特别高昂，原因有2点：1. 数据量特别大，不可能将十亿个数放进数组排序，有可能内存都装不下；2. 只需要取前M的有序的值，并不需要将所有数据排序，甚至都无法获取全部的数据。
+
+优先队列可以解决这类问题，有了优先队列，只需要创建一个大小为M的队列即可代替创建大小为总数据量N的数组。
+### API
+|方法|描述|
+|---|---|
+|MaxPQ()|创建一个优先队列|
+|MaxPQ(int max)|创建一个初始容量的优先队列|
+|MaxPQ(Key[] arr)|用arr[]中的元素创建一个优先队列|
+|void insert(Key v)|向优先队列插入一个元素|
+|Key max()|返回最大元素|
+|Key delMax()|删除最大元素|
+|boolean isEmpty()|判断是否为空|
+|int size()|查看队列大小|
+
+### 初级实现
+基于无序数组的优先队列：[MaxPQ4DisArray.java](https://github.com/yuzh233/Algorithms/blob/master/src/chapter_2/_4priority_queues/MaxPQ4DisArray.java)
+
+基于有序数组的优先队列：[MaxPQ4Array.java](https://github.com/yuzh233/Algorithms/blob/master/src/chapter_2/_4priority_queues/MaxPQ4Array.java)
+
+基于无序链表栈的优先队列：[MaxPQ4Linked.java](https://github.com/yuzh233/Algorithms/blob/master/src/chapter_2/_4priority_queues/MaxPQ4Linked.java)
+
+### 基于堆的优先队列 
+
+
+## 堆排序 
