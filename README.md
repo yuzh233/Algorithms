@@ -841,6 +841,8 @@ public class Selection extends Example {
 ```
 
 ## 插入排序
+将当前元素插入到当前元素之前的合适位置
+
 首先从数组的第二个元素（目标元素）开始，当目标元素小于前面的元素，交换两者位置（否则不变）；然后目标元素变为第三个元素，将其与第二个元素比较，若小则交换位置（此时目标元素索引为1），再将其与第一个元素对比，循环往复...
 
 - 外循环遍历每一个需要插入的目标元素
@@ -864,7 +866,22 @@ public class Insertion extends Example {
     }
 }
 ```
-大幅度提高插入排序的速度，只需要在内循环中将较大的元素向右移动而不总是交换两个元素（这样访问数组的次数会减半），实现见 [练习]()。
+大幅度提高插入排序的速度，只需要在内循环中将较大的元素向右移动而不总是交换两个元素（这样访问数组的次数会减半），实现见 [练习](https://github.com/yuzh233/Algorithms/blob/master/src/chapter_2/_1elementary_sorts/Ex25.java)。
+```java
+public class Ex25 extends Example {
+    public void sort(Comparable[] a) {
+        int n = a.length;
+        for (int i = 1; i < n; i++) {
+            Comparable target = a[i]; // 保存目标元素的值
+            int j; // 保存目标元素应该插入的位置
+            for (j = i; j > 0 && less(target, a[j - 1]); j--) {
+                a[j] = a[j - 1]; // 前驱元素后移
+            }
+            a[j] = target;
+        }
+    }
+}
+```
 
 ## 选择排序与插入排序比较
 从直观上来说：
