@@ -12,8 +12,9 @@ import edu.princeton.cs.algs4.StdOut;
 public class LowM {
     public static void main(String[] args) {
         int M = Integer.parseInt(args[0]);
-//        MaxPQ<Transaction> pq = new MaxPQ4Array<>();
-        MaxPQ<Transaction> pq = new MaxPQ4Linked<>();
+//        IMaxPQ<Transaction> pq = new MaxPQ4Array<>();
+//        IMaxPQ<Transaction> pq = new MaxPQ4Linked<>();
+        MaxPQ<Transaction> pq = new MaxPQ<>();
         while (StdIn.hasNextLine()) {
             pq.insert(new Transaction(StdIn.readLine()));
             if (pq.size() > M) pq.delMax();

@@ -1186,6 +1186,108 @@ public class Quick extends Example {
 基于无序链表栈的优先队列：[MaxPQ4Linked.java](https://github.com/yuzh233/Algorithms/blob/master/src/chapter_2/_4priority_queues/MaxPQ4Linked.java)
 
 ### 基于堆的优先队列 
+#### 二叉堆的定义与表示法
+> 二叉堆（完全二叉树，之不过在这叫做堆）是一种基于数组的数据结构。既然是树形结构，必然有一个根节点，根节点下面挂着（一个或）两个子节点，每个子节点作为父节点又挂着两个子节点。同级节点之间无关顺序，父节点大于等于子节点。当一个二叉树的每个节点都大于等于它的两个子节点时，被称之为“堆有序”。
+
+**如何用数组存储具有层级顺序关系的二叉堆呢？**
+
+首先，二叉堆在数组中按索引位置 `1` 开始存储（不使用数组的第一个元素）
+
+在一个堆中位置 `k` 的节点的父节点的位置为 `k/2`，而它的两个子节点的位置分别为 `k*2`, `K*2+1`，这样就可以通过计算索引在树中上下移动。
+
+二叉堆表示：
+
+![Alt text](/alg_img/6.jpg)
+
+二叉堆在数组中的存储结构：
+
+![Alt text](/alg_img/7.jpg)
+
+用长度为 N+1 的数组 pq[] 来表示一个大小为 N 的堆，因为堆元素存放与 pq[1]到pq[N]之中，所以实际数组的长度要是堆的元素大小`+1`。
+
+#### 由下至上的堆有序化（上浮）
+当堆的有序化因为某个节点变得比其父节点更大而被打破，我们需要交换该节点和其父节点来修复堆。交换后该节点比它的两个子节点（一个是交换之前的父节点，另一个比它更小，因为是旧父节点的子节点）都要大了，但该节点仍然有可能比现在的父节点要大，所以需要再一次交换，使得该节点不断上浮直到遇到了更大的节点或到达堆顶。
+```java
+public class MaxPQ<Key extends Comparable<Key>> implements IMaxPQ<Key> {
+    //......
+    public void swim(int k) {
+        while (k > 1 && less(k / 2, k)) { 
+            exch(k / 2, k);
+            k = k / 2; 
+        } 
+    }
+ }
+```
+
+#### 由上至下的堆有序化（下沉）
+下沉与上浮相反，当有序状态因为某个节点变得比它的两个（或其中之一）子节点要小被打破，那么需要交换该节点与其较大的一个子节点来保持平衡。倘若交换之后该节点仍比现在的子节点之一要大，继续交换，直至向下交换到该节点的子节点都比它小或到达堆的底部。
+
+疑问：“父节点怎么会变得比子节点要小呢？添加一个元素在数组末尾时会通过上浮移动到合适的位置的啊。”  — 这跟删除最大元素的算法有关，移除堆顶元素时，会用数组的最后一个元素替补最大元素，所以此时存在元素下沉的必要。
+```java
+public class MaxPQ<Key extends Comparable<Key>> implements IMaxPQ<Key> {
+    //......
+    public void sink(int k) {
+        while (2 * k <= N) { 
+            int j = 2 * k; 
+            if (j < N && less(j, j + 1)) j++; 
+            if (!less(k, j)) break; 
+            exch(k, j);
+            k = j; 
+        } 
+    }
+ }
+```
+堆的上浮与下沉：
+
+![Alt text](/alg_img/8.jpg)
+
+#### 优先队列实现
+理解了上浮和下沉，优先队列核心的两个api就能实现了，对于 `插入元素`，只需将元素添加到数组末尾，增加堆的大小并让新元素上浮到合适的位置；对于 `删除最大元素`，我们从数组顶端去除最大元素，并将数组最后一个元素放到顶端，减少堆的大小并让元素下沉到合适的位置即可。
+```java
+public class MaxPQ<Key extends Comparable<Key>> implements IMaxPQ<Key> {
+    private Key[] pq; // 基于堆的完全二叉树
+    private int N; // 堆元素数量
+
+    @Override
+    public void insert(Key v) {
+        if (N == pq.length - 1) resize(pq.length * 2);
+        pq[++N] = v;
+        swim(N);
+    }
+
+    @Override
+    public Key delMax() {
+        if (isEmpty()) throw new NoSuchElementException("Priority queue underflow");
+        Key max = pq[1];
+        exch(1, N--);
+        pq[N + 1] = null; // 防止对象游离
+        sink(1);
+        if (N > 0 && (pq.length - 1) / 4 == N) resize(pq.length / 2);
+        return max;
+    }
+
+    @Override
+    public Key max() {
+        if (isEmpty()) throw new NoSuchElementException("Priority queue underflow");
+        return pq[1];
+    }
+
+    private void resize(int max) {
+        assert max > N;
+        Key[] temp = (Key[]) new Comparable[max];
+        for (int i = 1; i < N + 1; i++) {
+            temp[i] = pq[i];
+        }
+        pq = temp;
+    }
+}
+```
+基于堆的优先队列API能够保证插入元素和删除最大元素的用时和队列的大小仅成对数关系。
+
+堆的操作：
+
+![Alt text](/alg_img/9.jpg)
+
 
 
 ## 堆排序 

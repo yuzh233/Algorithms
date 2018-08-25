@@ -13,7 +13,7 @@ import java.util.Iterator;
  * 方式一：修改pop()找到并返回最大元素（实现）
  * 方式二：修改push()使得元素逆序存放，最后一个进栈的元素最大。
  */
-public class MaxPQ4Linked<Key extends Comparable<Key>> implements MaxPQ<Key>, Iterable<Key> {
+public class MaxPQ4Linked<Key extends Comparable<Key>> implements IMaxPQ<Key>, Iterable<Key> {
     private Node<Key> first;
     private int N;
 

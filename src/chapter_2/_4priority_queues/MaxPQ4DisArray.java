@@ -8,7 +8,7 @@ import edu.princeton.cs.algs4.StdOut;
  * <p>
  * 基于无序数组实现的优先队列
  */
-public class MaxPQ4DisArray<Key extends Comparable<Key>> implements MaxPQ<Key> {
+public class MaxPQ4DisArray<Key extends Comparable<Key>> implements IMaxPQ<Key> {
     private Key[] a;
     private int n;
 
@@ -16,7 +16,7 @@ public class MaxPQ4DisArray<Key extends Comparable<Key>> implements MaxPQ<Key> {
      * 创建一个优先队列
      */
     MaxPQ4DisArray() {
-        a = (Key[]) new Comparable[5];
+        this(5);
     }
 
     /**
