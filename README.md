@@ -1331,5 +1331,90 @@ public class MaxPQ<Key extends Comparable<Key>> implements IMaxPQ<Key> {
 ```
 基于堆的优先队列API能够保证插入元素和删除最大元素的用时和队列的大小仅成对数关系。
 
+#### 索引优先队列
+二叉树存储的不是元素值，而是元素值的key；通过这个 key 在元素数组 element[] 中找到元素值；用keyIndex[]存储key的索引。
+
+先补点智商，干了这碗鸡汤：[索引优先队列的工作原理与简易实现](https://www.cnblogs.com/nullzx/p/6624731.html)
+
+提醒：前方高能！！！[传送门](https://github.com/yuzh233/Algorithms/blob/master/src/chapter_2/_4priority_queues/IndexMinPQ.java)
 
 ## 堆排序 
+以优先队列实现的排序算法，将原始数组元素放入一个优先队列中，由于在队列中可以轻易的获得最大值，每次获取的最大值可以组成一个递减序列。如果获取的最大值不删除，而是将其和队列的最后一个元素交换，第二次将新的最大值与数组的倒数第二个值交换，循环往复，直至数组元素遍历完，排序完成。
+
+### 堆的构建
+将原始数组元素组成一个完全二叉树结构，一个简单的方式就是将数组 `从左至右` 执行 `上浮` 操作，直至每个元素放到了合适的位置。
+
+上浮操作生成堆会扫描数组的每一个元素，更好的方式是 `从右至左` 执行 `下沉` 操作，它只需要扫描数组一半的元素，因为不需要比较叶子节点。
+
+### 排序
+交换堆顶元素和最后一个元素，每次交换之后重新下沉以维持堆的有序状态。
+
+由于在堆结构中不使用数组的第一个位置的元素，导致原始数组的第一个元素值必须为null，要以正常存储的方式使用堆排序，只需要在 less() 和 exch() 中将传入的索引-1即可。
+
+```java
+public class Heap {
+    public void sort(Comparable[] a) {
+        int n = a.length - 1;
+        // 构造堆
+        sinkGenerationHead(a, n);
+//        swimGenerationHead(a, n);
+        // 堆排序
+        while (n > 1) {
+            exch(a, 1, n--);
+            sink(a, 1, n);
+        }
+    }
+
+    //下沉生成大顶堆（最优）
+    public void sinkGenerationHead(Comparable[] a, int n) {
+        for (int i = n / 2; i >= 1; i--) { // 从右到左
+            sink(a, i, n);
+        }
+    }
+
+    // 上浮生成大顶堆
+    public void swimGenerationHead(Comparable[] a, int n) {
+        for (int k = 0; k < n; k++) { // 必须是从左到右
+            swim(a, k, n);
+        }
+    }
+
+    public void sink(Comparable[] a, int k, int n) {
+        while (2 * k <= n) {
+            int j = 2 * k;
+            if (j < n && less(a, j, j + 1))
+                j++;
+            if (!less(a, k, j))
+                break;
+            exch(a, k, j);
+            k = j;
+        }
+    }
+
+    public void swim(Comparable[] a, int k, int n) {
+        while (k > 1 && less(a, k / 2, k)) {
+            exch(a, k / 2, k);
+            k = k / 2;
+        }
+    }
+
+    private boolean less(Comparable[] a, int i, int j) {
+        return a[i].compareTo(a[j]) < 0;
+    }
+
+    private void exch(Comparable[] a, int i, int j) {
+        Comparable tem = a[i];
+        a[i] = a[j];
+        a[j] = tem;
+    }
+
+    public static void main(String[] args) {
+        Comparable[] a = new Comparable[]{null, 2, 0, 5, 7, 9, 8, 3, 1, 4, 6};
+        Heap heap = new Heap();
+        heap.sort(a);
+        for (int i = 0; i < a.length; i++) {
+            StdOut.print(a[i] + " ");
+        }
+    }
+}
+```
