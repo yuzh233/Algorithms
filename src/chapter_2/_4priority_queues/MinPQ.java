@@ -18,7 +18,7 @@ public class MinPQ<Key extends Comparable> {
         this(1);
     }
 
-    MinPQ(int capacity) {
+    public MinPQ(int capacity) {
         pq = (Key[]) new Comparable[capacity + 1];
     }
 
