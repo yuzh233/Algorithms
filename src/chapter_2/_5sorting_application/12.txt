@@ -1,0 +1,4 @@
+glory_of_kings 3600
+eat_chicken 1800
+firefox 900
+youtube 7200

@@ -14,7 +14,7 @@ public class MinPQ<Key extends Comparable> {
     private Key[] pq;
     private int N;
 
-    MinPQ() {
+    public MinPQ() {
         this(1);
     }
 
@@ -89,7 +89,7 @@ public class MinPQ<Key extends Comparable> {
 
     public void show() {
         for (int i = 1; i <= N; i++) {
-            StdOut.print(pq[i] + " ");
+            StdOut.println(pq[i]);
         }
     }
 
