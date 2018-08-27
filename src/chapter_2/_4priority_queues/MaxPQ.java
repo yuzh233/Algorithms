@@ -14,16 +14,16 @@ public class MaxPQ<Key extends Comparable<Key>> implements IMaxPQ<Key> {
     private Key[] pq; // 基于堆的完全二叉树
     private int N; // 堆元素数量，数组索引和当前第几个元素顺序是一样的。比如第2个元素，数组索引是2。
 
-    MaxPQ() {
+    public MaxPQ() {
         this(1);
     }
 
-    MaxPQ(int max) {
+    public MaxPQ(int max) {
         pq = (Key[]) new Comparable[max + 1];
         N = 0;
     }
 
-    MaxPQ(Key[] arr) {
+    public MaxPQ(Key[] arr) {
         pq = (Key[]) new Comparable[arr.length + 1];
         for (int i = 0; i < arr.length; i++) {
             insert(arr[i]);
