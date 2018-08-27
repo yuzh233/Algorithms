@@ -5,8 +5,6 @@ import edu.princeton.cs.algs4.StdIn;
 import edu.princeton.cs.algs4.StdOut;
 import lombok.Data;
 
-import java.util.Arrays;
-
 /**
  * @Author: yu_zh
  * @DateTime: 2018/08/27 19:30
