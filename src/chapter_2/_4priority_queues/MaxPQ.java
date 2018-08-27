@@ -74,7 +74,7 @@ public class MaxPQ<Key extends Comparable<Key>> implements IMaxPQ<Key> {
     public void sink(int k) {
         while (2 * k <= N) { // 如果元素从pq[0]开始，最后一个元素是pq[n-1]；但是这里元素从pq[1]开始，最后一个元素是pq[n]；
             int j = 2 * k; // 子节点1
-            if (j < N && less(j, j + 1)) j++; // j < N保证访问到最后一个子节点
+            if (j < N && less(j, j + 1)) j++; // j < N 才能每次访问到最后一个子节点
             if (!less(k, j)) break;
             exch(k, j); // 子节点1 < 子节点2，父节点与子节点2交换；子节点1 > 子节点2，父节点与子节点1交换；
             k = j; // 子节点变为父节点
