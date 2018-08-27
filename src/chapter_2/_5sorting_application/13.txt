@@ -1,0 +1,10 @@
+task1 3600
+task2 1800
+task3 900
+task4 7200
+task5 30
+task6 1000
+task7 3200
+task8 7500
+task9 8100
+task10 2000

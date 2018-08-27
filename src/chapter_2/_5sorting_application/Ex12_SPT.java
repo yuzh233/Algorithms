@@ -3,7 +3,6 @@ package chapter_2._5sorting_application;
 import chapter_2._4priority_queues.MinPQ;
 import edu.princeton.cs.algs4.StdIn;
 import edu.princeton.cs.algs4.StdOut;
-import lombok.Data;
 
 /**
  * @Author: yu_zh
@@ -26,35 +25,6 @@ public class Ex12_SPT {
         }
     }
 
-    @Data
-    private static class Task implements Comparable<Task> {
-        private String application;
-        private float time;
-
-        public Task() {
-
-        }
-
-        public Task(String app, float time) {
-            this.application = app;
-            this.time = time;
-        }
-
-        @Override
-        public int compareTo(Task o) {
-            if (this.time > o.time) return 1;
-            if (this.time < o.time) return -1;
-            return 0;
-        }
-
-        @Override
-        public String toString() {
-            return "Task{" +
-                    "application='" + application + '\'' +
-                    ", time=" + time +
-                    '}';
-        }
-    }
 }
 
 
