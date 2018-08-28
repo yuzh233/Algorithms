@@ -30,7 +30,7 @@ public class Ex14_Domain implements Comparable<Ex14_Domain> {
         }
 
         /***********************************************************
-         * 域名逆序排序 注意：字符顺序在前的ASCII值 < 字母顺序在前的ASCII值
+         * 域名逆序排序 注意：字符顺序在前的ASCII值 < 字符顺序在后的ASCII值
          * 希望 com.baidu在 edu.princeton.cs.algs4之前显示，需要降序排序。
          ***********************************************************/
         QuickSortDesc.sort(domainNames);
