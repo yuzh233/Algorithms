@@ -1,5 +1,6 @@
 package chapter_2._5sorting_application;
 
+import chapter_2._3quicksort.Quick;
 import edu.princeton.cs.algs4.StdIn;
 import edu.princeton.cs.algs4.StdOut;
 import lombok.Data;
@@ -31,9 +32,8 @@ public class Ex14_Domain implements Comparable<Ex14_Domain> {
 
         /***********************************************************
          * 域名逆序排序 注意：字符顺序在前的ASCII值 < 字符顺序在后的ASCII值
-         * 希望 com.baidu在 edu.princeton.cs.algs4之前显示，需要降序排序。
          ***********************************************************/
-        QuickSortDesc.sort(domainNames);
+        new Quick().sort(domainNames);
         show(domainNames);
     }
 
@@ -58,7 +58,7 @@ public class Ex14_Domain implements Comparable<Ex14_Domain> {
         Ex14_Domain a = new Ex14_Domain();
         a.setDomainName(new String[]{"com", "baidu"});
         Ex14_Domain b = new Ex14_Domain();
-//        b.setDomainName(new String[]{"com", "baidu", "news"});
+        // b.setDomainName(new String[]{"com", "baidu", "news"});
         b.setDomainName(new String[]{"edu", "princeton", "cs", "algs4"});
         int r = a.compareTo(b);
         System.out.println(r);
@@ -101,8 +101,8 @@ public class Ex14_Domain implements Comparable<Ex14_Domain> {
                 } catch (ArrayIndexOutOfBoundsException e) {
                     return -1;
                 }
-                if (a1 < a2) return 1;
-                if (a1 > a2) return -1; // A-Z:65-90 a-z:97-122
+                if (a1 > a2) return 1;
+                if (a1 < a2) return -1; // A-Z:65-90 a-z:97-122
             }
         }
         return 0;
