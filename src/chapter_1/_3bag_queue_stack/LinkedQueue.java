@@ -1,6 +1,7 @@
 package chapter_1._3bag_queue_stack;
 
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 
 /**
  * @Author: yu_zh
@@ -48,6 +49,7 @@ public class LinkedQueue<Item> implements Iterable {
      * @return
      */
     public Item dequeue() {
+        if (isEmpty()) throw new NoSuchElementException("Queue underflow");
         Node<Item> oldFirst = first;
         first = first.next;
         if (isEmpty()) {
@@ -57,6 +59,11 @@ public class LinkedQueue<Item> implements Iterable {
         return oldFirst.item;
     }
 
+    public Item peek() {
+        if (isEmpty()) throw new NoSuchElementException("Queue underflow");
+        Node<Item> oldFirst = first;
+        return oldFirst.item;
+    }
 
     public boolean isEmpty() {
         return first == null;
